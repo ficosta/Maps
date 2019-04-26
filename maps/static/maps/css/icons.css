@@ -1,0 +1,37 @@
+.acidente {
+  background-image: url('../icons/acidente.png');
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.semaforo_apagado {
+  background-image: url('../icons/semaforo_apagado.png');
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.transito_moderado {
+  background-image: url('../icons/transito_leve.png');
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.transito_pesado {
+  background-image: url('../icons/transito_moderado.png');
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.transito_parado {
+  background-image: url('../icons/transito_pesado.png');
+  background-size: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+

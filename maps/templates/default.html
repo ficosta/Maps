@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <title>Title</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'maps/css/icons.css' %}">
     <style type="text/css">
         body, html {
             height: 100%;
@@ -42,7 +44,7 @@
                         "coordinates": [{{ occurrence.lon }}, {{ occurrence.lat }}]
                     },
                     "properties": {
-                        "icon": "monument"
+                        "icon": "{{ occurrence.status.codigo_css }}"
 
                     }
                 },
@@ -51,14 +53,11 @@
     };
 
     geojson.features.forEach(function (marker) {
-// create a DOM element for the marker
+        // create a DOM element for the marker
         var el = document.createElement('div');
-        el.className = 'marker';
-        el.style.backgroundImage = 'url(http://placekitten.com/g/100/100)';
-        el.style.width = '100px';
-        el.style.height = '100px';
+        el.className = marker.properties.icon;
 
-// add marker to map
+        // add marker to map
         new mapboxgl.Marker(el)
             .setLngLat(marker.geometry.coordinates)
             .addTo(map);
