@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8"/>
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+        }
+
+        div#myMap {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+
+
+        }
+
+        .trafficLegend {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: white;
+            padding: 5px;
+            font-family: arial;
+            font-size: 20 spx;
+        }
+
+        .trafficLegend span {
+            width: 40px;
+        }
+
+        .trafficLegend table {
+            border-collapse: collapse;
+        }
+
+        .trafficLegend td {
+            min-width: 40px;
+        }
+    </style>
+    <script type='text/javascript'>
+        var map, trafficManager;
+
+        function GetMap() {
+            map = new Microsoft.Maps.Map('#myMap', {
+
+
+                mapTypeId: Microsoft.Maps.MapTypeId.grayscale
+            });
+
+
+            //Load traffic module.
+            Microsoft.Maps.loadModule('Microsoft.Maps.Traffic', function () {
+                //Create an instance of the traffic manager and bind to map.
+
+                trafficManager = new Microsoft.Maps.Traffic.TrafficManager(map);
+                //Display the traffic data layer.
+                trafficManager.setOptions({flowVisible: false, incidentsVisible: false, legendVisible: false});
+                trafficManager.show();
+
+            });
+            {% for occurrence in occurrences %}
+
+            var pushpin = new Microsoft.Maps.Pushpin(map.getCenter(), {
+                icon: 'https://www.bingmapsportal.com/Content/images/poi_custom.png',
+                anchor: new Microsoft.Maps.Point({{ occurrence.lat }}, {{ occurrence.lon }})
+            });
+            map.entities.push(pushpin);
+            
+            {% endfor %}
+        }
+
+
+    </script>
+    <script type='text/javascript'
+            src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=e2Ryat0fIWEIDgjKR9Y7~aUeETJP1iRC9ysNZFSTPaw~AnanSwz_yAZ17cPyEBYNCiZi_wA6Filmquj0PMSk9KfON-A1cCkXBSPhmTDgQXht'
+            async defer></script>
+</head>
+<body>
+<div id="myMap"></div>
+<div class="trafficLegend">
+    <table>
+        <tr>
+            <td>
+                <div style="background-color:green;">&nbsp;</div>
+            </td>
+            <td>Livre</td>
+        </tr>
+        <tr>
+            <td>
+                <div style="background-color:yellow;">&nbsp</div>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <div style="background-color:orange;">&nbsp</div>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <div style="background-color:red;">&nbsp</div>
+            </td>
+            <td>Congestionado</td>
+        </tr>
+        <tr>
+            <td>
+                <div style="background:repeating-linear-gradient(90deg, red, red 20%, white 20%, white 40%);">&nbsp
+                </div>
+            </td>
+            <td>Fechado</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
